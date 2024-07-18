@@ -6,4 +6,4 @@ const router: Router = Router();
 
 router.get("/", controller.index);
 
-export const topicRoute = router;
+export const topicRouter = router;
