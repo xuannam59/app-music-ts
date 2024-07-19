@@ -9,6 +9,10 @@ router.get("/detail/:slugSong", controller.detail);
 
 router.patch("/detail/like/:typeLike/:id", controller.like);
 
-router.get("/detail/favorite/:typeFavorit/:id", controller.favorite);
+router.patch("/detail/favorite/:typeFavorit/:id", controller.favoritePatch);
+
+router.get("/favorite/music", controller.favorite);
+
+
 
 export const songRouter = router;

@@ -80,7 +80,7 @@ export const detail = async (req: Request, res: Response) => {
 
 }
 
-// [GET] /songs/detail/like/:typeLike/:id
+// [PATCH] /songs/detail/like/:typeLike/:id
 export const like = async (req: Request, res: Response) => {
   try {
     const id: string = req.params.id;
@@ -118,8 +118,8 @@ export const like = async (req: Request, res: Response) => {
 
 }
 
-// [GET] /songs/detail/favorite/:typeFavorite/:id
-export const favorite = async (req: Request, res: Response) => {
+// [PATCH] /songs/detail/favorite/:typeFavorite/:id
+export const favoritePatch = async (req: Request, res: Response) => {
   try {
     const typeFavorit: string = req.params.typeFavorit;
     const id: string = req.params.id;
@@ -147,5 +147,35 @@ export const favorite = async (req: Request, res: Response) => {
       code: 400,
       message: "Error!"
     })
+  }
+}
+
+// [GET] /songs/favorite
+export const favorite = async (req: Request, res: Response) => {
+  try {
+    const favoriteSongs = await Favorite.find({
+      deleted: false
+    });
+
+    for (let item of favoriteSongs) {
+      const song = await Song.findOne({
+        _id: item.songId
+      }).select("-lyrics -audio");
+
+      const singer = await Singer.findOne({
+        _id: song.singerId
+      }).select("fullName");
+
+      item["song"] = song;
+      item["singer"] = singer;
+    }
+
+    res.render("client/pages/songs/favorite", {
+      pageTitle: "Favorite music",
+      favoriteSongs: favoriteSongs
+    })
+
+  } catch (error) {
+    res.redirect("/topics");
   }
 }
