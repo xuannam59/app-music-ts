@@ -13,6 +13,8 @@ router.patch("/detail/favorite/:typeFavorit/:id", controller.favoritePatch);
 
 router.get("/favorite/music", controller.favorite);
 
+router.patch("/listen/:songId", controller.listen);
+
 
 
 export const songRouter = router;

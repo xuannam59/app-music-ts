@@ -179,3 +179,38 @@ export const favorite = async (req: Request, res: Response) => {
     res.redirect("/topics");
   }
 }
+
+// [PATCH] /songs/listen/:songId
+export const listen = async (req: Request, res: Response) => {
+  try {
+    const id: string = req.params.songId;
+    const song = await Song.findOne({
+      _id: id,
+      deleted: false
+    });
+
+    const listen = song.listen + 1;
+    await Song.updateOne({
+      _id: id
+    }, {
+      listen: listen
+    });
+
+    const newSong = await Song.findOne({
+      _id: id,
+      deleted: false
+    });
+
+    const newListen = newSong.listen;
+    res.json({
+      code: 200,
+      message: "Success!",
+      listen: newListen
+    })
+  } catch (error) {
+    res.json({
+      code: 400,
+      message: "Error!"
+    })
+  }
+}

@@ -28,6 +28,21 @@ if (aplayer) {
   ap.on('pause', function () {
     avaterSong.style.animationPlayState = "paused";
   });
+
+  ap.on('ended', function () {
+    const link = `/songs/listen/${dataSong._id}`;
+    const option = {
+      method: "PATCH"
+    }
+    fetch(link, option)
+      .then(res => res.json())
+      .then(data => {
+        if (data.code == 200) {
+          const innerListen = document.querySelector(".singer-detail .inner-actions .inner-listen .inner-number");
+          innerListen.innerHTML = data.listen;
+        }
+      });
+  })
 }
 
 // Press like button
