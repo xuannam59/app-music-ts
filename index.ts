@@ -21,5 +21,5 @@ app.set('view engine', 'pug');
 routeClient(app);
 
 app.listen(port, () => {
-  console.log(`App listener port on${port}`);
+  console.log(`App listener port on ${port}`);
 })

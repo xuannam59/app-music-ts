@@ -42,7 +42,7 @@ export const list = async (req: Request, res: Response) => {
 // [GET] /songs/detail/:slugSong
 export const detail = async (req: Request, res: Response) => {
   try {
-    const slugSong = req.params.slugSong;
+    const slugSong: string = req.params.slugSong;
     const song = await Song.findOne({
       slug: slugSong,
       deleted: false,
@@ -61,8 +61,14 @@ export const detail = async (req: Request, res: Response) => {
       status: "active"
     }).select("fullName");
 
+    const favorite = await Favorite.findOne({
+      songId: song.id,
+      deleted: false
+    })
+
     song["topic"] = topic;
     song["singer"] = singer;
+    song["favorite"] = favorite ? true : false;
 
     res.render("client/pages/songs/detail", {
       pageTitel: song.title,
