@@ -4,7 +4,7 @@ import { topicRouter } from "./topic.route";
 import { songRouter } from "./songs.route";
 import { searchRoute } from "./search.route";
 
-const routeClient = (app: Express) => {
+const clientRoute = (app: Express) => {
 
   app.use("/topics", topicRouter);
 
@@ -14,4 +14,4 @@ const routeClient = (app: Express) => {
 
 }
 
-export default routeClient;
+export default clientRoute;
