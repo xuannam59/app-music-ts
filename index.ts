@@ -5,6 +5,7 @@ import * as database from "./config/database";
 import clientRouter from "./routers/client/index.route";
 import { systemConfig } from "./config/system";
 import adminRoute from "./routers/admin/index.route";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -12,6 +13,9 @@ database.connect();
 
 const app: Express = express();
 const port: number | string = process.env.PROT || 3000;
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
 /* New Route to the TinyMCE Node module */
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
