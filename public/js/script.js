@@ -19,14 +19,14 @@ if (aplayer) {
     volume: 0.5
   });
 
-  const avaterSong = document.querySelector(".singer-detail .inner-avatar");
+  const avatarSong = document.querySelector(".singer-detail .inner-avatar");
 
   ap.on('play', function () {
-    avaterSong.style.animationPlayState = "running";
+    avatarSong.style.animationPlayState = "running";
   });
 
   ap.on('pause', function () {
-    avaterSong.style.animationPlayState = "paused";
+    avatarSong.style.animationPlayState = "paused";
   });
 
   ap.on('ended', function () {
