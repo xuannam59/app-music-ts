@@ -4,6 +4,7 @@ import { systemConfig } from "../../config/system";
 import { dashboardRouter } from "./dashboard.route";
 import { topicsRouter } from "./topics";
 import { songsRouter } from "./songs.route";
+import { uploadRoute } from "./upload.route";
 
 
 const adminRoute = (app: Express) => {
@@ -13,6 +14,8 @@ const adminRoute = (app: Express) => {
   app.use(`/${prefixAdmin}/topics`, topicsRouter);
 
   app.use(`/${prefixAdmin}/songs`, songsRouter);
+
+  app.use(`/${systemConfig.prefixAdmin}/upload`, uploadRoute);
 }
 
 export default adminRoute;
