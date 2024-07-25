@@ -16,6 +16,14 @@ router.post("/create",
   upload.fields([
     { name: 'avatar', maxCount: 1 },
     { name: 'audio', maxCount: 1 }
-  ]), cloudinary.uploadMultip, controller.createPost)
+  ]), cloudinary.uploadMultip, controller.createPost);
+
+router.get("/edit/:id", controller.edit);
+
+router.patch("/edit/:id",
+  upload.fields([
+    { name: 'avatar', maxCount: 1 },
+    { name: 'audio', maxCount: 1 }
+  ]), cloudinary.uploadMultip, controller.editPost)
 
 export const songsRouter: Router = router;

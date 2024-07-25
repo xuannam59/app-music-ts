@@ -6,6 +6,7 @@ import clientRouter from "./routers/client/index.route";
 import { systemConfig } from "./config/system";
 import adminRoute from "./routers/admin/index.route";
 import bodyParser from "body-parser";
+import methodOverride from "method-override";
 
 dotenv.config();
 
@@ -13,6 +14,9 @@ database.connect();
 
 const app: Express = express();
 const port: number | string = process.env.PROT || 3000;
+
+// override with POST having ?_method="<METHOD>"
+app.use(methodOverride('_method'));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -24,10 +28,10 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 // File static
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/public`));
 
 // View Pug
-app.set('views', './views');
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 
 // Router Client
