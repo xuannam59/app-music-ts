@@ -1,3 +1,4 @@
+const tinymce = require("tinymce");
 tinymce.init({
   selector: 'textarea[textarea-mce]',
   plugins: 'image',
